@@ -3,6 +3,8 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
+import { errorHandler } from './middleware/errorHandler';
+import businessPlanRouter from './routes/businessPlan';
 
 dotenv.config();
 
@@ -14,7 +16,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: [
-      'http://localhost:3000',
+      process.env.CORS_ORIGIN ?? 'http://localhost:3000',
       'http://localhost:3001',
       'http://localhost:3002',
     ],
@@ -25,7 +27,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
+// Health check
 app.get('/health', (_req, res) => {
   res.json({
     success: true,
@@ -34,20 +36,25 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// Form submission endpoint
-app.post('/submit-form', (req, res) => {
-  console.log('Form submitted:', req.body);
-  res.json({
-    success: true,
-    message: 'Form submitted successfully!',
-    data: req.body,
+// Routes
+app.use('/api/business-plans', businessPlanRouter);
+
+// 404 handler
+app.use((_req, res) => {
+  res.status(404).json({
+    success: false,
+    message: 'Route not found',
   });
 });
+
+// Error handling
+app.use(errorHandler);
 
 // Start server
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
-  console.log(`🚀 Accepting requests from UI1, UI2, and UI3`);
+  console.log(`🚀 Environment: ${process.env.NODE_ENV ?? 'development'}`);
+  console.log(`📡 Accepting requests from UI1, UI2, and UI3`);
 });
 
 export default app;

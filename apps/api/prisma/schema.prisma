@@ -1,0 +1,76 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // provider = "postgresql"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model BusinessPlan {
+  id        String   @id @default(uuid())
+  userId    String?  // Optional: link to user if you have auth
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Page 1: Company Overview & Goals
+  businessName     String?
+  website          String?
+  businessAddress  String?
+  businessPurpose  String?
+  problemSolution  String?
+  topGoals         String?
+  keyAchievements  String?
+
+  // Page 2: Structure & Operations
+  inspiration       String?
+  longTermVision    String?
+  legalStructure    String?
+  ownership         String?
+  locationSetup     String?
+  permitsLicenses   String?
+  suppliersPartners String?
+  differentiation   String?
+
+  // Page 3: Market & Competition
+  serviceArea           String?
+  targetMarket          String?
+  competitors           String?
+  competitiveComparison String?
+  marketTrends          String?
+
+  // Page 4: Team & Management
+  teamMembers   String?
+  hiringPlans   String?
+  staffPrograms String?
+
+  // Page 5: Products & Services
+  averagePrice String?
+  topRevenue   String?
+  newProducts  String?
+
+  // Page 6: Marketing & Growth Strategy
+  monthlyMarketingCost String?
+  customerAcquisition  String?
+  loyaltyPrograms      String?
+  expansionPlans       String?
+
+  // Page 7: SWOT Analysis
+  strengths     String?
+  weaknesses    String?
+  opportunities String?
+  threats       String?
+
+  // Page 8: Financials
+  monthlyEarnings  String?
+  inventoryCost    String?
+  monthlyExpenses  String?
+  debtInvestors    String?
+  financialGoals   String?
+  growthMilestone  String?
+
+  @@map("business_plans")
+}

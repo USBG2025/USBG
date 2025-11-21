@@ -1,5 +1,5 @@
 'use client';
-
+import { useState } from 'react';
 import { useMultiStepForm, MultiStepFormData, getSchemaForPage } from '@monorepo/forms';
 import { Button } from '@monorepo/ui';
 import StepIndicator from './StepIndicator';
@@ -8,32 +8,59 @@ import { ArrowLeft } from 'lucide-react';
 import { z } from 'zod'
 
 export default function MultiStepForm() {
-  const { form, currentStep, totalSteps, nextStep, prevStep, isFirstStep, isLastStep } =
+  const { form, goToStep, currentStep, totalSteps, nextStep, prevStep, isFirstStep, isLastStep } =
     useMultiStepForm(9);
 
-  const onSubmit = async (data: MultiStepFormData) => {
-    try {
-      if (isLastStep) {
-        // ADD VALIDATION HERE TOO!
-        const currentSchema = getSchemaForPage(currentStep);
-        const currentData = form.getValues();
-        await currentSchema.parseAsync(currentData);
+const [isSaving, setIsSaving] = useState(false);
 
-        console.log('Form submitted:', data);
-        alert('Form submitted successfully!');
-      } else {
-        await nextStep();
+const onSubmit = async (data: MultiStepFormData) => {
+  try {
+    setIsSaving(true);
+
+    if (isLastStep) {
+      // Validate final page
+      const currentSchema = getSchemaForPage(currentStep);
+      await currentSchema.parseAsync(data);
+
+      // Submit all data to API
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+
+      const response = await fetch(`${API_URL}/api/business-plans`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to submit form');
       }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        error.errors.forEach((err) => {
-          form.setError(err.path[0] as any, {
-            message: err.message,
-          });
-        });
-      }
+
+      const result = await response.json();
+      console.log('Form submitted successfully:', result);
+      alert('Form submitted successfully!');
+      
+      form.reset();
+      goToStep(1)
+    } else {
+      // Just move to next step, no API call
+      await nextStep();
     }
-  };
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      error.errors.forEach((err) => {
+        form.setError(err.path[0] as any, {
+          message: err.message,
+        });
+      });
+    } else {
+      console.error('Submission error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to submit. Please try again.');
+    }
+  } finally {
+    setIsSaving(false);
+  }
+};
 
   const getButtonText = () => {
     if (currentStep === totalSteps - 1)
@@ -69,7 +96,7 @@ export default function MultiStepForm() {
             )}
           </div>
 
-          <Button type="submit" className="ml-auto min-w-[120px]">
+          <Button type="submit" className="ml-auto min-w-[120px]" disabled={isSaving}>
             {getButtonText()}
           </Button>
         </div>

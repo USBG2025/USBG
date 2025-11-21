@@ -1,4 +1,5 @@
-import { type Request, type Response, type NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { Prisma } from '@prisma/client';
 
 export interface ApiError extends Error {
   statusCode?: number;
@@ -10,10 +11,28 @@ export const errorHandler = (
   res: Response,
   _next: NextFunction
 ): void => {
+  console.error('Error:', err);
+
+  // Prisma errors
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    if (err.code === 'P2002') {
+      res.status(409).json({
+        success: false,
+        message: 'Resource already exists',
+      });
+      return;
+    }
+    if (err.code === 'P2025') {
+      res.status(404).json({
+        success: false,
+        message: 'Resource not found',
+      });
+      return;
+    }
+  }
+
   const statusCode = err.statusCode ?? 500;
   const message = err.message ?? 'Internal Server Error';
-
-  console.error('Error:', err);
 
   res.status(statusCode).json({
     success: false,
