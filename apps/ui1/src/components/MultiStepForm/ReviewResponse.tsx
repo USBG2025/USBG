@@ -37,7 +37,7 @@ export default function ReviewResponses({
     console.log('Processing step:', stepKey, stepConfig);
     
     // [{label: asdas, key}]
-    stepConfig.forEach((config) => {
+    stepConfig?.forEach((config) => {
       console.log({config})
       const value = data[config.key as keyof MultiStepFormData];
 
