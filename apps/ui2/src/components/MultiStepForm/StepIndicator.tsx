@@ -8,9 +8,15 @@ interface StepIndicatorProps {
 }
 
 const steps = [
-  { id: 1, title: 'Service Selection' },
-  { id: 2, title: 'Contact Details' },
-  { id: 3, title: 'Content Availability' },
+  { id: 1, label: 'Step 1' },
+  { id: 2, label: 'Step 2' },
+  { id: 3, label: 'Step 3' },
+  { id: 4, label: 'Step 4' },
+  { id: 5, label: 'Step 5' },
+  { id: 6, label: 'Step 6' },
+  { id: 7, label: 'Step 7' },
+  { id: 8, label: 'Step 8' },
+  { id: 9, label: 'Step 9' },
 ];
 
 export default function StepIndicator({ currentStep, totalSteps }: StepIndicatorProps) {
@@ -35,18 +41,13 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
                   step.id < currentStep
                     ? 'border-primary bg-primary text-white'
                     : step.id === currentStep
-                    ? 'border-primary text-primary'
-                    : 'border-gray-300 text-gray-400'
+                      ? 'border-primary text-primary'
+                      : 'border-gray-300 text-gray-400'
                 }
               `}
             >
-              {step.id < currentStep ? (
-                <Check className="w-5 h-5" />
-              ) : (
-                <span>{step.id}</span>
-              )}
+              {step.id < currentStep ? <Check className="w-5 h-5" /> : <span>{step.id}</span>}
             </div>
-
             {/* Step Label */}
             <span
               className={`
@@ -54,7 +55,7 @@ export default function StepIndicator({ currentStep, totalSteps }: StepIndicator
                 ${step.id === currentStep ? 'text-primary' : 'text-gray-600'}
               `}
             >
-              {step.title}
+              {step.label}
             </span>
           </div>
         ))}

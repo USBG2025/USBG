@@ -3,13 +3,11 @@
 import { useMultiStepForm, MultiStepFormData } from '@monorepo/forms';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import StepIndicator from './StepIndicator';
-import Step1 from './steps/Step1';
-import Step2 from './steps/Step2';
-import Step3 from './steps/Step3';
+import Step from './steps/Step';
 
 export default function MultiStepForm() {
   const { form, currentStep, totalSteps, nextStep, prevStep, isFirstStep, isLastStep } =
-    useMultiStepForm(3);
+    useMultiStepForm(9);
 
   const onSubmit = async (data: MultiStepFormData) => {
     if (isLastStep) {
@@ -27,9 +25,7 @@ export default function MultiStepForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         {/* Step Content */}
         <div className="min-h-[400px]">
-          {currentStep === 1 && <Step1 form={form} />}
-          {currentStep === 2 && <Step2 form={form} />}
-          {currentStep === 3 && <Step3 form={form} />}
+           <Step form={form} currentStep={currentStep} totalSteps={totalSteps} isLastStep={isLastStep} />
         </div>
 
         {/* Navigation Buttons */}
