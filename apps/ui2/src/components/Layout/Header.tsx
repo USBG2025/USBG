@@ -10,7 +10,7 @@ export default function Header() {
               <FileText className="w-6 h-6 text-primary" />
             </div>
             <h1 className="text-2xl font-bold">
-              Business Plan Builder
+              LaunchCraft Studio
             </h1>
           </div>
         </div>
