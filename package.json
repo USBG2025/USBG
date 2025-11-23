@@ -36,5 +36,9 @@
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.936.0",
+    "stripe": "^20.0.0"
   }
 }

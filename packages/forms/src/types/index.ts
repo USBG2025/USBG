@@ -1,5 +1,8 @@
 export interface MultiStepFormData {
   // Page 1: Company Overview & Goals
+  firstName?: string;
+  lastName?: string;
+  middleName?: string;
   businessName?: string;
   website?: string;
   businessAddress?: string;

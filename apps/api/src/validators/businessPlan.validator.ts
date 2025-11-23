@@ -3,6 +3,9 @@ import { z } from 'zod';
 // For API validation - all fields optional at DB level
 export const createBusinessPlanSchema = z.object({
   // Page 1: Company Overview & Goals
+  firstName: z.string(),
+  middleName: z.string().optional(),
+  lastName: z.string(),
   businessName: z.string().optional(),
   website: z.string().optional(),
   businessAddress: z.string().optional(),

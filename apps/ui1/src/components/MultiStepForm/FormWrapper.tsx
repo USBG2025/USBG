@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 import { z } from 'zod'
 
 export default function MultiStepForm() {
-  const { form, goToStep, currentStep, totalSteps, nextStep, prevStep, isFirstStep, isLastStep } =
+  const { form, currentStep, totalSteps, nextStep, prevStep, isFirstStep, isLastStep } =
     useMultiStepForm(9);
 
 const [isSaving, setIsSaving] = useState(false);
@@ -23,7 +23,7 @@ const onSubmit = async (data: MultiStepFormData) => {
       await currentSchema.parseAsync(data);
 
       // Submit all data to API
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
       const response = await fetch(`${API_URL}/api/business-plans`, {
         method: 'POST',
@@ -38,10 +38,8 @@ const onSubmit = async (data: MultiStepFormData) => {
 
       const result = await response.json();
       console.log('Form submitted successfully:', result);
-      alert('Form submitted successfully!');
-      
-      form.reset();
-      goToStep(1)
+
+      window.location.href = 'https://buy.stripe.com/test_eVq14o86xg7mfOobVi7kc00';
     } else {
       // Just move to next step, no API call
       await nextStep();

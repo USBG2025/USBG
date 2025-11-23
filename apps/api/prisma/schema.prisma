@@ -1,5 +1,4 @@
 // This is your Prisma schema file
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -15,6 +14,11 @@ model BusinessPlan {
   userId    String?  // Optional: link to user if you have auth
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Customer Information
+  firstName     String?
+  middleName    String?
+  lastName      String?
 
   // Page 1: Company Overview & Goals
   businessName     String?

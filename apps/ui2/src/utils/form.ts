@@ -1,10 +1,10 @@
 import { MultiStepFormData } from '@monorepo/forms';
 
 export interface PageConfig {
-    label: string;
-    type: 'input' | 'textarea';
-    key: keyof MultiStepFormData;
-    placeholder: string;
+  label: string;
+  type: 'input' | 'textarea';
+  key: keyof MultiStepFormData;
+  placeholder: string;
 }
 
 export const formConfig: {
@@ -12,50 +12,101 @@ export const formConfig: {
 } = {
   page1: [
     {
-      label: 'What is your business name?',
+      label: 'First name',
+      type: 'input',
+      key: 'firstName',
+      placeholder: 'e.g., John',
+    },
+    {
+      label: 'Middle name',
+      type: 'input',
+      key: 'middleName',
+      placeholder: 'e.g., David',
+    },
+    {
+      label: 'Last Name',
+      type: 'input',
+      key: 'lastName',
+      placeholder: 'e.g., Doe',
+    },
+    {
+      label: 'What do you call your company?',
       type: 'input',
       key: 'businessName',
       placeholder: 'e.g., Acme Corp',
     },
     {
-      label: 'If you have a website, what is it?',
+      label: 'Do you have an online presence? Share your website URL.',
       type: 'input',
       key: 'website',
       placeholder: 'https://example.com',
     },
     {
-      label: 'What is the address of the business?',
+      label: 'Where is your business physically located?',
       type: 'textarea',
       key: 'businessAddress',
       placeholder: '123 Main St, City, State, ZIP',
     },
     {
-      label: 'What is the purpose of your business, in one sentence?',
+      label: 'In one sentence, describe what your business does.',
       type: 'textarea',
       key: 'businessPurpose',
       placeholder: 'We help businesses streamline their operations through...',
     },
     {
-      label: 'What problem does your business solve, and for whom?',
+      label: 'Who do you serve, and what challenge do you help them overcome?',
       type: 'textarea',
       key: 'problemSolution',
       placeholder: 'We solve X problem for Y customers by...',
     },
     {
-      label: 'What are your top 3 goals for the next 1–3 years?',
+      label:
+        'What are the three most important milestones you want to achieve in the next 1–3 years?',
       type: 'textarea',
       key: 'topGoals',
       placeholder: '1. Reach $1M in revenue\n2. Expand to new markets\n3. Launch new product line',
     },
     {
       label:
-        'What key achievements or traction do you already have (revenue, clients, awards, etc.)?',
+        'What progress have you made so far? (sales figures, customer base, recognition, etc.)',
       type: 'textarea',
       key: 'keyAchievements',
       placeholder: 'e.g., $500K revenue, 100+ clients, Best Startup Award 2024',
     },
   ],
   page2: [
+    {
+      label: 'What city, county, or region do you serve?',
+      type: 'input',
+      key: 'serviceArea',
+      placeholder: 'e.g., Los Angeles County, CA',
+    },
+    {
+      label: 'Who is your target market (tell us their age, income, lifestyle, and main needs)?',
+      type: 'textarea',
+      key: 'targetMarket',
+      placeholder: 'Age: 25-45, Income: $50K-$100K, Lifestyle: Urban professionals who...',
+    },
+    {
+      label: 'Who are your top 3–5 competitors (names or website)?',
+      type: 'textarea',
+      key: 'competitors',
+      placeholder: '1. Competitor A - competitora.com\n2. Competitor B - competitorb.com',
+    },
+    {
+      label: 'How do you compare in pricing, quality, and customer experience?',
+      type: 'textarea',
+      key: 'competitiveComparison',
+      placeholder: 'We offer premium quality at mid-range prices with...',
+    },
+    {
+      label: 'What trends or changes are shaping your business right now?',
+      type: 'textarea',
+      key: 'marketTrends',
+      placeholder: 'e.g., Remote work, sustainability focus, digital transformation',
+    },
+  ],
+  page3: [
     {
       label: 'What inspired you to start this business?',
       type: 'textarea',
@@ -105,59 +156,7 @@ export const formConfig: {
       placeholder: 'Our unique value proposition is...',
     },
   ],
-  page3: [
-    {
-      label: 'What city, county, or region do you serve?',
-      type: 'input',
-      key: 'serviceArea',
-      placeholder: 'e.g., Los Angeles County, CA',
-    },
-    {
-      label: 'Who is your target market (tell us their age, income, lifestyle, and main needs)?',
-      type: 'textarea',
-      key: 'targetMarket',
-      placeholder: 'Age: 25-45, Income: $50K-$100K, Lifestyle: Urban professionals who...',
-    },
-    {
-      label: 'Who are your top 3–5 competitors (names or website)?',
-      type: 'textarea',
-      key: 'competitors',
-      placeholder: '1. Competitor A - competitora.com\n2. Competitor B - competitorb.com',
-    },
-    {
-      label: 'How do you compare in pricing, quality, and customer experience?',
-      type: 'textarea',
-      key: 'competitiveComparison',
-      placeholder: 'We offer premium quality at mid-range prices with...',
-    },
-    {
-      label: 'What trends or changes are shaping your business right now?',
-      type: 'textarea',
-      key: 'marketTrends',
-      placeholder: 'e.g., Remote work, sustainability focus, digital transformation',
-    },
-  ],
   page4: [
-    {
-      label: 'Who started the business or key team members, and what are their roles?',
-      type: 'textarea',
-      key: 'teamMembers',
-      placeholder: 'Founder - John Doe - CEO\nCo-founder - Jane Smith - COO',
-    },
-    {
-      label: 'Do you plan to hire more staff members in the next year?',
-      type: 'textarea',
-      key: 'hiringPlans',
-      placeholder: 'Yes, we plan to hire 3 sales reps and 2 developers',
-    },
-    {
-      label: 'Do you offer staff training, incentives, or retention programs?',
-      type: 'textarea',
-      key: 'staffPrograms',
-      placeholder: 'Monthly training, performance bonuses, health benefits',
-    },
-  ],
-  page5: [
     {
       label: 'What is your average price?',
       type: 'input',
@@ -177,7 +176,7 @@ export const formConfig: {
       placeholder: 'Yes, launching summer collection in Q2',
     },
   ],
-  page6: [
+  page5: [
     {
       label: 'What is your monthly marketing cost?',
       type: 'input',
@@ -203,33 +202,27 @@ export const formConfig: {
       placeholder: 'Planning to expand to Texas and Florida in 2025',
     },
   ],
-  page7: [
+  page6: [
     {
-      label: 'Strengths: What do customers love most about your business?',
+      label: 'Who started the business or key team members, and what are their roles?',
       type: 'textarea',
-      key: 'strengths',
-      placeholder: 'Excellent customer service, fast delivery, quality products',
+      key: 'teamMembers',
+      placeholder: 'Founder - John Doe - CEO\nCo-founder - Jane Smith - COO',
     },
     {
-      label: 'Weaknesses: What challenges do you face?',
+      label: 'Do you plan to hire more staff members in the next year?',
       type: 'textarea',
-      key: 'weaknesses',
-      placeholder: 'Limited brand awareness, higher prices than competitors',
+      key: 'hiringPlans',
+      placeholder: 'Yes, we plan to hire 3 sales reps and 2 developers',
     },
     {
-      label: 'Opportunities: How could you gain an advantage?',
+      label: 'Do you offer staff training, incentives, or retention programs?',
       type: 'textarea',
-      key: 'opportunities',
-      placeholder: 'Growing market demand, potential partnerships, new technology',
-    },
-    {
-      label: 'Threats: What external risks (competition, economy, supply) concern you most?',
-      type: 'textarea',
-      key: 'threats',
-      placeholder: 'New competitors entering market, economic downturn, supply chain issues',
+      key: 'staffPrograms',
+      placeholder: 'Monthly training, performance bonuses, health benefits',
     },
   ],
-  page8: [
+  page7: [
     {
       label: 'What is your average monthly earning?',
       type: 'input',
@@ -267,5 +260,31 @@ export const formConfig: {
       placeholder: 'Open second location, launch e-commerce site, hire 10 employees',
     },
   ],
-  page9: []
+  page8: [
+    {
+      label: 'Strengths: What do customers love most about your business?',
+      type: 'textarea',
+      key: 'strengths',
+      placeholder: 'Excellent customer service, fast delivery, quality products',
+    },
+    {
+      label: 'Weaknesses: What challenges do you face?',
+      type: 'textarea',
+      key: 'weaknesses',
+      placeholder: 'Limited brand awareness, higher prices than competitors',
+    },
+    {
+      label: 'Opportunities: How could you gain an advantage?',
+      type: 'textarea',
+      key: 'opportunities',
+      placeholder: 'Growing market demand, potential partnerships, new technology',
+    },
+    {
+      label: 'Threats: What external risks (competition, economy, supply) concern you most?',
+      type: 'textarea',
+      key: 'threats',
+      placeholder: 'New competitors entering market, economic downturn, supply chain issues',
+    },
+  ],
+  page9: [],
 };

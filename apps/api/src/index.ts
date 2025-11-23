@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import dotenv from 'dotenv';
 import { errorHandler } from './middleware/errorHandler';
 import businessPlanRouter from './routes/businessPlan';
+import webHooksRouters from './routes/webhooks';
 
 dotenv.config();
 
@@ -13,6 +14,10 @@ const PORT = process.env.PORT ?? 8080;
 
 // Middleware
 app.use(helmet());
+
+
+app.use('/api/webhooks', express.raw({ type: 'application/json' }), webHooksRouters);
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN ? (process.env.CORS_ORIGIN as string).split(',') : [
@@ -28,6 +33,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 console.log('Accepting origins - ', process.env.CORS_ORIGIN?.split(','))
+
 // Health check
 app.get('/health', (_req, res) => {
   res.json({

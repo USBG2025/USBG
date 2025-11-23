@@ -12,6 +12,24 @@ export const formConfig: {
 } = {
   page1: [
     {
+      label: 'First name',
+      type: 'input',
+      key: 'firstName',
+      placeholder: 'e.g., John',
+    },
+    {
+      label: 'Middle name',
+      type: 'input',
+      key: 'middleName',
+      placeholder: 'e.g., David',
+    },
+    {
+      label: 'Last Name',
+      type: 'input',
+      key: 'lastName',
+      placeholder: 'e.g., Doe',
+    },
+    {
       label: 'What is your business name?',
       type: 'input',
       key: 'businessName',
