@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Sparkles, Heart, Zap, Palette, Camera, Coffee, Lightbulb, Rocket, Star } from 'lucide-react';
+import { Sparkles, Heart, Zap, Palette, Coffee, Lightbulb, Rocket, Star } from 'lucide-react';
 
 export default function LaunchCraftStudioLanding() {
   return (
@@ -42,13 +42,6 @@ export default function LaunchCraftStudioLanding() {
               >
                 <Rocket className="w-6 h-6 group-hover:translate-y-[-4px] transition-transform" />
                 Let's Build Something Amazing
-              </Link>
-              <Link 
-                href="#gallery"
-                className="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-10 py-5 rounded-2xl text-xl font-bold hover:bg-white/20 transition-all border-2 border-white/30"
-              >
-                <Camera className="w-6 h-6" />
-                See Our Work
               </Link>
             </div>
 
