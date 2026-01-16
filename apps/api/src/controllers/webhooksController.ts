@@ -43,7 +43,7 @@ export const stripePaymentCompleted = async (req: Request, res: Response) => {
       const latestRecord = await prisma.businessPlan.findFirst({
         where: {
           // @ts-ignore
-          email: session.customer_details?.email,
+          email: session.customer_details?.email?.toLowerCase(),
         },
         orderBy: {
           createdAt: 'desc',
