@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../lib/prisma';
 import { createError } from '../middleware/errorHandler';
+import { EmailService } from '../services/email';
+import { getDomainConfig } from '../utils/utils';
 
 // Create a new business plan
 export const createBusinessPlan = async (
@@ -14,6 +16,19 @@ export const createBusinessPlan = async (
       data: businessPlanInput,
     });
 
+    console.log(`Saved business plan - ${JSON.stringify(businessPlan, null, 2)}`)
+    const emailService = new EmailService();
+    const htmlBody = emailService.generateBusinessPlanEmail(businessPlan);
+    const domainConfig = getDomainConfig(businessPlan?.origin ?? null);
+    const submissionEmailRecipients = process.env.DEFAULT_SUBMISSION_EMAIL_RECIPIENTS!.split(',');
+    console.log(`Target email for domain ${businessPlan.origin} - ${JSON.stringify(domainConfig, null, 2)}`)
+
+    await emailService.sendEmail({
+      to: domainConfig?.submissionEmail ?? submissionEmailRecipients,
+      subject: `New Business Plan Generation Submission - ${businessPlan?.origin}`,
+      html: htmlBody,
+      from: domainConfig?.fromEmail ?? process.env.AWS_SES_DEFAULT_FROM_EMAIL,
+    });
 
     res.status(201).json({
       success: true,
